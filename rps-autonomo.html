@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculos Folha de Pagamento</title>
+<!-- CSS do Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- JS do Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Incluindo Favicon -->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Cálculos Folha de Pagamento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="hora-extra.html">Hora Extra</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adicional-noturno.html">Adicional Noturno</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gratificacao.html">Gratificação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inss-irpf.html">INSS e IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="resilicao.html">Resilição</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auxilio-ir.html">Aux IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adto-salarial.html">Adto Salarial</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            RPS
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="rps-frete.html">RPS de Frete Mercadoria</a></li>
+                            <li><a class="dropdown-item" href="rps-transporte.html">RPS de Transporte de Pessoas</a>
+                            </li>
+                            <li><a class="dropdown-item" href="rps-autonomo.html">RPS de Autônomo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Transferência
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="transferencia-clt.html">Transferência CLT</a></li>
+                            <li><a class="dropdown-item" href="transferencia-rel.html">Transferência Religioso</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Décimo Terceiro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="subs-anual-especial.html">Subsistência Anual Especial</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <style>
+        body {
+          background-color: #f2f2f2;
+          min-height: 90vh;
+          display: flex;
+          flex-direction: column;
+        }
+    
+        .content-wrapper {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+    
+            input {
+                width: 80%; /* Ajuste a largura conforme necessário */
+                padding: 10px; /* Aplica padding (preenchimento) em todos os lados */
+                text-align: center; /* Centraliza o placeholder */
+            }
+    
+            .negrito-input {
+                /*background-color: #FFFF00;  Amarelo neon */
+                font-weight: bold;
+            }
+    
+            .card {
+            border: none;
+            box-shadow: none;
+            }
+    
+    
+        </style>
+    
+            <div class="content-wrapper">
+                <div class="card" style="width: 76rem;">
+                    <div class="card-body">
+                        <h2 class="card-title mt-3 mb-5 text-center">14400 - Pagamento Autônomo</h2>
+    
+                        <form class="row g-2">
+                            <div class="col"></div>
+                            <div class="col-md-1 offset-md-4"></div>
+                            <div class="col-md-1 text-center"><label class="form-label">Referência</label></div>
+                            <div class="col-md-1 text-center"><label class="form-label">Valor Base</label></div>
+                            <div class="col-md-1 text-center"><label class="form-label">Percentual</label></div>
+                            <div class="col-md-1 text-center"><label class="form-label">Base Aux 1</label></div>
+                            <div class="col-md-1 text-center"><label class="form-label">Base Aux 2</label></div>
+                            <div class="col-md-1 text-center"><label class="form-label">Valor</label></div>
+                            <div class="col"></div>
+                        </form>
+    
+                        <form class="row g-2 mb-1" style="background-color: #BFCCDB;">
+                            <div class="col"></div>
+                            <div class="col-5">
+                                <h5>14400 - Pagamento Autônomo</h5>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="refFrete" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control negrito-input" id="pagto" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorPagto" disabled>
+                            </div>
+                            <div class="col"></div>
+                        </form>
+                        
+                        <form class="row g-2 mb-1" style="background-color: #C1DBC1;">
+                            <div class="col"></div>
+                            <div class="col-5">
+                                <h5>15000 - INSS</h5>
+                            </div>
+                            <div class="col-1">
+                                <select class="form-select" id="refInss" oninput="calcularFreteMercadoria()">
+                                    <option value="0">%</option>
+                                    <option value="11">11.00 - Religiosa</option>
+                                    <option value="20">20.00 - Educação</option>
+                                  </select>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorFixoInss" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorInss" disabled>
+                            </div>
+                            <div class="col"></div>
+                        </form>
+                        
+                        <form class="row g-2 mb-1" style="background-color: #C1DBC1;">
+                            <div class="col"></div>
+                            <div class="col-5">
+                                <h5>15500 - IRRF Mensal</h5>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="refIrrf" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorFixoIrrf" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="percentIrrf" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="baseAux1Irrf" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="baseAux2Irrf" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorIrrf" disabled>
+                            </div>
+                            <div class="col"></div>
+                        </form>
+                        
+                        <form class="row g-2 mb-1" style="background-color: #C1DBC1;">
+                            <div class="col"></div>
+                            <div class="col-5">
+                                <h5>15800 - ISSQN</h5>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorFixoIss" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="aliquotaIss" oninput="calcularFreteMercadoria()">
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorIss" disabled>
+                            </div>
+                            <div class="col"></div>
+                        </form>
+                        
+                        <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                            <div class="col"></div>
+                            <div class="col-5">
+                                <h5>91000 - INSS - Quota Patronal</h5>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" value="20.0" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorFixoInssPatronal" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorInssPatronal" disabled>
+                            </div>
+                            <div class="col"></div>
+                        </form>
+    
+                                            
+                        <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                            <div class="col"></div>
+                            <div class="col-5">
+                                <h5>94710 - Pag. Serviço - Lançamento Complementar</h5>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorFixoLcmtoComplem" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="" disabled>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="valorLcmtoComplem" disabled>
+                            </div>
+                            <div class="col"></div>
+                        </form>
+                        
+    
+                        <br>
+    
+    
+                            <div class="text-center"><h5>Resumo</h5></div>
+          
+                    
+                        <form class="row g-2">
+                            <div class="col"></div>
+    
+                            <div class="col-2 text-center">
+                                <label class="form-label">Proventos</label>
+                                <input type="text" class="form-control" id="proventos" disabled>
+                            </div>
+                            <div class="col-2 text-center">
+                                <label class="form-label">Descontos</label>
+                                <input type="text" class="form-control" id="descontos" disabled>
+                            </div>
+                            <div class="col-2 text-center">
+                                <label class="form-label">Outros</label>
+                                <input type="text" class="form-control" id="outros" disabled>
+                            </div>
+                            <div class="col-2 text-center">
+                                <label class="form-label">Líquido</label>
+                                <input type="text" class="form-control" id="valorDesejado" oninput="calcularFreteMercadoria()">
+                            </div>
+                            <div class="col"></div>
+                        </form>
+    
+                    </div>
+                </div>
+            </div>
+    
+            <script>
+                function calcularFreteMercadoria() {
+        // Função para parsear valores numéricos com vírgula
+        function parseNumber(value) {
+            value = value.replace(/\./g, '');
+            return parseFloat(value.replace(',', '.') || '0');
+        }
+    
+        let valorDesejado = parseNumber(document.getElementById('valorDesejado').value);
+        let aliquotaIss = parseNumber(document.getElementById('aliquotaIss').value)/100;
+        let aliquotaInss = parseNumber(document.getElementById('refInss').value)/100;
+        
+        
+        // Valores iniciais para o loop
+        let pagamento = 0;
+        let liquido = 0;
+        let diferenca = 1; 
+        let precisao = 0.01; 
+        let maxIteracoes = 1000;
+        let iteracao = 0;
+    
+        // Variáveis para armazenar os valores finais
+        let inss, irrf,deducaoUtilizada, baseIrrf, baseInss;
+        let aliquota, deducao, iss, inssPatronal;
+
+    
+        while (Math.abs(diferenca) > precisao && iteracao < maxIteracoes) {
+            // Cálculos baseados no valor atual de proventos
+            const tetoInss = 8157.41;
+            baseInss = Math.min(pagamento, tetoInss);
+            inss = baseInss * aliquotaInss;
+            
+            // Cálculo IR
+            const dedSimplificada = 0;
+            deducaoUtilizada = Math.max(inss, dedSimplificada);
+            baseIrrf = pagamento - deducaoUtilizada;
+            
+            if (baseIrrf <= 2259.2) {
+                irrf = 0.00;
+                aliquota = 0.00;
+                deducao = 0.00;
+            } else if (baseIrrf < 2826.65) {
+                irrf = baseIrrf * 0.075 - 169.44;
+                aliquota = 7.50;
+                deducao = 169.44;
+            } else if (baseIrrf < 3751.05) {
+                irrf = baseIrrf * 0.15 - 381.44;
+                aliquota = 15.00;
+                deducao = 381.44;
+            } else if (baseIrrf < 4664.68) {
+                irrf = baseIrrf * 0.225 - 662.77;
+                aliquota = 22.50;
+                deducao = 662.77;
+            } else {
+                irrf = baseIrrf * 0.275 - 896.00;
+                aliquota = 27.50;
+                deducao = 896.00;
+            }
+    
+            if (irrf < 10) {
+                irrf = 0;
+            }
+    
+            iss = pagamento * aliquotaIss;
+            
+            liquido = pagamento - inss - irrf - iss;
+
+            inssPatronal = pagamento * 0.20;
+            
+            // Calcula a diferença e ajusta o valor de proventos
+            diferenca = liquido - valorDesejado;
+            
+            // Ajusta o valor de proventos baseado na diferença
+            if (diferenca > 0) {
+                pagamento -= diferenca * 0.5;
+            } else {
+                pagamento -= diferenca * 0.5;
+            }
+            
+            iteracao++;
+        }
+    
+        // Atualiza todos os campos do formulário após o término dos cálculos
+        document.getElementById('pagto').value = pagamento.toFixed(2);
+        document.getElementById('valorPagto').value = pagamento.toFixed(2);
+    
+        document.getElementById('valorFixoInss').value = baseInss.toFixed(2);
+        document.getElementById('valorInss').value = inss.toFixed(2);
+    
+        document.getElementById('refIrrf').value = aliquota.toFixed(2);
+        document.getElementById('valorFixoIrrf').value = pagamento.toFixed(2);
+        document.getElementById('percentIrrf').value = deducaoUtilizada.toFixed(2);
+        document.getElementById('baseAux1Irrf').value = baseIrrf.toFixed(2);
+        document.getElementById('baseAux2Irrf').value = deducao.toFixed(2);
+        document.getElementById('valorIrrf').value = irrf.toFixed(2);
+    
+        document.getElementById('valorFixoIss').value = pagamento.toFixed(2);
+        document.getElementById('valorIss').value = iss.toFixed(2);
+    
+        document.getElementById('valorFixoInssPatronal').value = pagamento.toFixed(2);
+        document.getElementById('valorInssPatronal').value = inssPatronal.toFixed(2);
+    
+        document.getElementById('valorFixoLcmtoComplem').value = pagamento.toFixed(2);
+        document.getElementById('valorLcmtoComplem').value = pagamento.toFixed(2);
+    
+        document.getElementById('proventos').value = pagamento.toFixed(2);
+        document.getElementById('descontos').value = (inss + irrf + iss).toFixed(2);
+        document.getElementById('outros').value = (pagamento + inssPatronal).toFixed(2);
+    
+    }
+            </script>
+    
+        <body>
+        </body>
+        </html>

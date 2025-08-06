@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculos Folha de Pagamento</title>
+<!-- CSS do Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- JS do Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Incluindo Favicon -->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+     <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Cálculos Folha de Pagamento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="hora-extra.html">Hora Extra</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adicional-noturno.html">Adicional Noturno</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gratificacao.html">Gratificação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inss-irpf.html">INSS e IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="resilicao.html">Resilição</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auxilio-ir.html">Aux IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adto-salarial.html">Adto Salarial</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            RPS
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="rps-frete.html">RPS de Frete Mercadoria</a></li>
+                            <li><a class="dropdown-item" href="rps-transporte.html">RPS de Transporte de Pessoas</a>
+                            </li>
+                            <li><a class="dropdown-item" href="rps-autonomo.html">RPS de Autônomo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Transferência
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="transferencia-clt.html">Transferência CLT</a></li>
+                            <li><a class="dropdown-item" href="transferencia-rel.html">Transferência Religioso</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Décimo Terceiro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="subs-anual-especial.html">Subsistência Anual Especial</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <style>
+        body {
+            background-color: #f2f2f2;
+            min-height: 90vh;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .negrito-input {
+            font-weight: bold;
+        }
+
+        .card {
+            border: none;
+            box-shadow: none;
+            flex: 1;
+            /* Faz os cards ocuparem o espaço disponível */
+        }
+
+        .content-wrapper {
+            display: flex;
+            /* Ativa o Flexbox */
+            justify-content: space-between;
+            /* Espaça os cards */
+            align-items: flex-start;
+            /* Alinha os cards ao topo */
+            margin: 30px;
+            /* Margem externa de 10% */
+        }
+
+        .card-body {
+            width: 100%;
+            /* Cada card ocupa 100% do seu contêiner */
+        }
+
+        .card-70 {
+            flex-basis: 70%;
+            /* Define a largura de 70% para o primeiro card */
+        }
+
+        .card-30 {
+            flex-basis: 30%;
+            /* Define a largura de 30% para o segundo card */
+            margin-left: 20px;
+        }
+    </style>
+
+    <div class="content-wrapper">
+        <div class="card card-70">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col mx-auto"><h2 class="card-title mt-3 mb-5 text-center">Custo - Transferência - Celetistas</h2></div>
+                    <div class="col-1"><button type="button" class="btn btn-danger"  onclick="limparFormulario()">Resetar</button></div>
+                </div>
+
+                <form class="row g-2">
+                    <div class="col"></div>
+                    <div class="col-md-1 offset-md-3"></div>
+                    <div class="col-md-1 text-center"><label class="form-label">Referência</label></div>
+                    <div class="col-md-1 text-center"><label class="form-label">Valor Base</label></div>
+                    <div class="col-md-1 text-center"><label class="form-label">Percentual</label></div>
+                    <div class="col-md-1 text-center"><label class="form-label">Base Aux 1</label></div>
+                    <div class="col-md-1 text-center"><label class="form-label">Base Aux 2</label></div>
+                    <div class="col-md-1 text-center"><label class="form-label">Valor</label></div>
+                    <div class="col"></div>
+                </form>
+
+                <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                    <div class="col"></div>
+                    <div class="col-4 form-label verba">93000 - Reversão Provisao 13º Salário</div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+                <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                    <div class="col"></div>
+                    <div class="col-4 form-label verba">93200 - Reversão Provisao 1/3 Férias</div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" data-toggle="tooltip"
+                            data-placement="top"
+                            title="Consultar AASI ou coluna Percentual do salário anterior, caso a coluna Valor esteja zerada considere valor da BaseAux1."
+                            id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+
+                <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                    <div class="col"></div>
+                    <div class="col-4 form-label verba">95022 - 13° Salario - Custo - Transferencia</div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="refDecimoTerceiro"
+                            oninput="obterValor()">
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="baseDecimoTerceiro" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="valorDecimoTerceiro" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+                <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                    <div class="col"></div>
+                    <div class="col-4 form-label verba">95025 - Ferias Vencidas - Custo - Transferencia</div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="refFeriasVencidas"
+                            oninput="obterValor()">
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="baseFeriasVencidas" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="valorFeriasVencidas" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+                <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                    <div class="col"></div>
+                    <div class="col-4 form-label verba">95026 - 1/3 Ferias Vencidas - Custo - Transferencia</div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="refTercoFeriasVencidas" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="baseTercoFeriasVencidas" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="valorTercoFeriasVencidas" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+                <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                    <div class="col"></div>
+                    <div class="col-4 form-label verba">95029 - Ferias Proporcional - Custo - Transferencia</div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="refFeriasProp"
+                            oninput="obterValor()">
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="baseFeriasProp" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="valorFeriasProp" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+                <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                    <div class="col"></div>
+                    <div class="col-4 form-label verba">95030 - 1/3 Férias Proporcionais - Custo - Transferencia</div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="refTercoFeriasProp" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="baseTercoFeriasProp" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="valorTercoFeriasProp" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+                <form class="row g-2 mb-1" style="background-color: #FFFDE0;">
+                    <div class="col"></div>
+                    <div class="col-4 form-label verba">95033 - Impostos ( INSS e FGTS ) - Custo - Transferencia</div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="refImpostos" oninput="obterValor()">
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="baseImpostos" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="" disabled>
+                    </div>
+                    <div class="col-1">
+                        <input type="text" class="form-control form-control-sm" id="valorImpostos" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+                <br>
+
+                <div class="text-center">
+                    <h5>Resumo</h5>
+                </div>
+
+
+                <form class="row g-2">
+                    <div class="col"></div>
+
+                    <div class="col-2 text-center">
+                        <label class="form-label">Proventos</label>
+                        <input type="text" class="form-control form-control-sm" value='0.00' id="proventos" disabled>
+                    </div>
+                    <div class="col-2 text-center">
+                        <label class="form-label">Descontos</label>
+                        <input type="text" class="form-control form-control-sm" value='0.00' id="descontos" disabled>
+                    </div>
+                    <div class="col-2 text-center">
+                        <label class="form-label">Outros</label>
+                        <input type="text" class="form-control form-control-sm" value='0.00' id="outros" disabled>
+                    </div>
+                    <div class="col-2 text-center">
+                        <label class="form-label">Líquido</label>
+                        <input type="text" class="form-control form-control-sm" value='0.00' id="liquido" disabled>
+                    </div>
+                    <div class="col"></div>
+                </form>
+
+            </div>
+        </div>
+
+        <br>
+
+
+        <div class="card card-30">
+            <div class="card-body">
+
+
+                <h2 class="card-title mb-4 mt-4 text-center">Mês de Cálculo</h2>
+
+                <div class="col">
+
+                    <form class="row g-2 mt-3">
+
+                        <div class="col-6 text-center">
+                            <label class="form-label">Salário</label>
+                            <input type="text" class="form-control form-control-sm"
+                                placeholder="valor do mês de cálculo" id="salario" oninput="obterValor()">
+                        </div>
+
+                        <div class="col-6 text-center">
+                            <label class="form-label">Antecipação</label>
+                            <input type="text" class="form-control form-control-sm"
+                                placeholder="valor do mês de cálculo" id="antecipacao" oninput="obterValor()">
+                        </div>
+
+                        <div class="col-4 text-center">
+                            <label class="form-label">Quota Pais</label>
+                            <input type="text" class="form-control form-control-sm"
+                                placeholder="valor do mês de cálculo" id="quotaPais" oninput="obterValor()">
+                        </div>
+
+                        <div class="col-4 text-center">
+                            <label class="form-label">Ded. Exclusiva</label>
+                            <input type="text" class="form-control form-control-sm"
+                                placeholder="valor do mês de cálculo" id="dedExc" oninput="obterValor()">
+                        </div>
+
+                        <div class="col-4 text-center">
+                            <label class="form-label">Adic. Tempo Serviço</label>
+                            <input type="text" class="form-control form-control-sm"
+                                placeholder="valor do mês de cálculo" id="ats" oninput="obterValor()">
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <h2 class="card-title mb-4 mt-5 text-center">Médias</h2>
+
+                <div class="row">
+                    <div class="col-6">
+
+                        <form class="row g-2">
+
+                            <div class=" text-center">
+                                <label class="form-label">Média Aux. Moradia</label>
+                                <input type="text" class="form-control form-control-sm" id="mediaMoradia" disabled>
+                            </div>
+                            <div class=" text-center">
+                                <label class="form-label">72910 - Auxílio Moradia</label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="valor dos últimos 12 meses" id="auxMoradia" oninput="obterValor()">
+                            </div>
+                            <div class="text-center">
+                                <label class="form-label">94910 - Utilidade Habitação</label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="valor dos últimos 12 meses" id="utilidadeMor" oninput="obterValor()">
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <form class="row g-2">
+
+                            <div class="text-center">
+                                <label class="form-label">Média Aux. KM</label>
+                                <input type="text" class="form-control form-control-sm" id="mediaKm" disabled>
+                            </div>
+                            <div class="text-center">
+                                <label class="form-label">72300 - Reemb. Uso do Veículo</label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="valor dos últimos 12 meses" id="reembolso" oninput="obterValor()">
+                            </div>
+                            <div class="text-center">
+                                <label class="form-label">72302 - Inden. Uso do Veículo </label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="valor dos últimos 12 meses" id="indenizacao" oninput="obterValor()">
+                            </div>
+                            <div class="text-center">
+                                <label class="form-label">72900 - Aux. Manutenção Veículo</label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="valor dos últimos 12 meses" id="auxManutencao" oninput="obterValor()">
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <div class="col">
+
+                        <form class="row g-2 mt-3">
+
+                            <div class="col-12 text-center">
+                                <label class="form-label">Médias (Horas Extras, Gratif e Outros)</label>
+                                <input type="text" class="form-control form-control-sm" id="mediaOutros" disabled>
+                            </div>
+                            <div class="col-4 text-center">
+                                <label class="form-label">Horas Extras</label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="valor dos últimos 12 m" id="horaExtra" oninput="obterValor()">
+                            </div>
+
+                            <div class="col-4 text-center">
+                                <label class="form-label">Gratificações</label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="valor dos últimos 12 m" id="gratificacao" oninput="obterValor()">
+                            </div>
+
+                            <div class="col-4 text-center">
+                                <label class="form-label">Outros</label>
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="valor dos últimos 12 m" id="outros" oninput="obterValor()">
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function obterValor() {
+            // Função para parsear valores numéricos com vírgula
+            function parseNumber(value) {
+                value = value.replace(/\./g, '');
+                return parseFloat(value.replace(',', '.') || '0');
+            }
+
+            let refDecimoTerceiro = parseNumber(document.getElementById('refDecimoTerceiro').value);
+            let refFeriasVencidas = parseNumber(document.getElementById('refFeriasVencidas').value);
+            let refFeriasProp = parseNumber(document.getElementById('refFeriasProp').value);
+            let refImpostos = parseNumber(document.getElementById('refImpostos').value) / 100;
+            let salario = parseNumber(document.getElementById('salario').value);
+            let antecipacao = parseNumber(document.getElementById('antecipacao').value);
+            let ats = parseNumber(document.getElementById('ats').value);
+            let quotaPais = parseNumber(document.getElementById('quotaPais').value);
+            let dedExc = parseNumber(document.getElementById('dedExc').value);
+            let auxMoradia = parseNumber(document.getElementById('auxMoradia').value);
+            let utilidadeMor = parseNumber(document.getElementById('utilidadeMor').value);
+            let reembolso = parseNumber(document.getElementById('reembolso').value);
+            let indenizacao = parseNumber(document.getElementById('indenizacao').value);
+            let auxManutencao = parseNumber(document.getElementById('auxManutencao').value);
+            let horaExtra = parseNumber(document.getElementById('horaExtra').value);
+            let gratificacao = parseNumber(document.getElementById('gratificacao').value);
+            let outros = parseNumber(document.getElementById('outros').value);
+
+            let mediaMoradia = (auxMoradia + utilidadeMor) / 12;
+            let mediaKm = (reembolso + indenizacao + auxManutencao) / 12;
+            let mediaOutros = (horaExtra + gratificacao + outros) / 12;
+
+            let baseComum = salario + antecipacao + ats + quotaPais + mediaMoradia + mediaKm + mediaOutros;
+
+            let decimoTerceiro = (baseComum + dedExc) / 12 * refDecimoTerceiro;
+            let feriasVencidas = (salario + antecipacao + ats + quotaPais) / 12 * refFeriasVencidas;
+            let tercoFeriasVencidas = (baseComum / 12) * refFeriasVencidas / 3;
+            let feriasProp = (salario + antecipacao + ats + quotaPais) / 12 * refFeriasProp;
+            let tercoFeriasProp = baseComum / 12 * refFeriasProp / 3;
+            let impostos = (decimoTerceiro + feriasVencidas + tercoFeriasVencidas + feriasProp + tercoFeriasProp) * refImpostos;
+
+
+            // Função para formatar número para o padrão brasileiro
+            function formatarMoedaBR(valor) {
+                return valor.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+
+            // Atualização dos campos com formatação brasileira
+            document.getElementById('baseDecimoTerceiro').value = formatarMoedaBR(baseComum + dedExc);
+            document.getElementById('baseFeriasVencidas').value = formatarMoedaBR(salario + antecipacao + ats + quotaPais);
+            document.getElementById('baseTercoFeriasVencidas').value = formatarMoedaBR(baseComum);
+            document.getElementById('baseFeriasProp').value = formatarMoedaBR(salario + antecipacao + ats + quotaPais);
+            document.getElementById('baseTercoFeriasProp').value = formatarMoedaBR(baseComum);
+            document.getElementById('baseImpostos').value = formatarMoedaBR(decimoTerceiro + feriasVencidas + tercoFeriasVencidas + feriasProp + tercoFeriasProp);
+
+            document.getElementById('valorDecimoTerceiro').value = formatarMoedaBR(decimoTerceiro);
+            document.getElementById('valorFeriasVencidas').value = formatarMoedaBR(feriasVencidas);
+            document.getElementById('valorTercoFeriasVencidas').value = formatarMoedaBR(tercoFeriasVencidas);
+            document.getElementById('valorFeriasProp').value = formatarMoedaBR(feriasProp);
+            document.getElementById('valorTercoFeriasProp').value = formatarMoedaBR(tercoFeriasProp);
+            document.getElementById('valorImpostos').value = formatarMoedaBR(impostos);
+
+            document.getElementById('mediaMoradia').value = formatarMoedaBR(mediaMoradia);
+            document.getElementById('mediaKm').value = formatarMoedaBR(mediaKm);
+            document.getElementById('mediaOutros').value = formatarMoedaBR(mediaOutros);
+
+        }
+
+        function limparFormulario() {
+        // Seleciona todos os elementos de input do formulário
+        const inputs = document.querySelectorAll('input');
+
+        // Limpa o valor de cada input
+        inputs.forEach(input => {
+            input.value = '';
+        });
+        }
+
+    </script>
+
+    <body>
+    </body>
+
+</html>

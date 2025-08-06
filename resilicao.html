@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculos Folha de Pagamento</title>
+<!-- CSS do Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- JS do Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Incluindo Favicon -->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Cálculos Folha de Pagamento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="hora-extra.html">Hora Extra</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adicional-noturno.html">Adicional Noturno</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gratificacao.html">Gratificação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inss-irpf.html">INSS e IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="resilicao.html">Resilição</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auxilio-ir.html">Aux IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adto-salarial.html">Adto Salarial</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            RPS
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="rps-frete.html">RPS de Frete Mercadoria</a></li>
+                            <li><a class="dropdown-item" href="rps-transporte.html">RPS de Transporte de Pessoas</a>
+                            </li>
+                            <li><a class="dropdown-item" href="rps-autonomo.html">RPS de Autônomo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Transferência
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="transferencia-clt.html">Transferência CLT</a></li>
+                            <li><a class="dropdown-item" href="transferencia-rel.html">Transferência Religioso</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Décimo Terceiro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="subs-anual-especial.html">Subsistência Anual Especial</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  <style>
+    body {
+      background-color: #f2f2f2;
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    input {
+      width: 80%; /* Ajuste a largura conforme necessário */
+      padding: 10px; /* Aplica padding (preenchimento) em todos os lados */
+      text-align: center; /* Centraliza o placeholder */
+    }
+
+    .negrito-input {
+            /*background-color: #FFFF00;  Amarelo neon */
+            font-weight: bold;
+        }
+  </style>
+
+    <div class="content-wrapper">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title mb-3 text-center">Resilição - RJ</h2>
+
+          <h5 class="mb-3 text-center">Remuneração Reduzida</h5>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label">10300 - Salário Mensal - Regente</label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="qtn-regente" placeholder="Qtd Hora Aula" oninput="obterValor()"></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="valor-regente" placeholder="Valor Hora Aula" oninput="obterValor()"></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control" id="total-regente" disabled></div>
+          </div>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label">10303 - Salário Horas Aula 1ª a 5ª</label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="qtn-fund1" placeholder="Qtd Hora Aula" oninput="obterValor()"></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="valor-fund1" placeholder="Valor Hora Aula" oninput="obterValor()"></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control" id="total-fund1" disabled></div>
+          </div>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label">10312 - Salário Horas Aula 6ª a 9ª</label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="qtn-fund2" placeholder="Qtd Hora Aula" oninput="obterValor()"></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="valor-fund2"  placeholder="Valor Hora Aula" oninput="obterValor()"></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control" id="total-fund2" disabled>
+            </div>
+          </div>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label">10322 - Salário Horas Aula Ensino Médio</label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="qtn-medio" placeholder="Qtd Hora Aula" oninput="obterValor()"></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="valor-medio" placeholder="Valor Hora Aula" oninput="obterValor()"></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control" id="total-medio" disabled>
+            </div>
+          </div>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label">11200 - Descanso Semanal - Remunerado</label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="percentual-dsr" disabled></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="base-dsr" disabled></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control" id="total-dsr" disabled></div>
+          </div>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label">00000 - ATS - Adicional Tempo Serviço</label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" placeholder="Percentual" id="percentual-ats" oninput="obterValor()"></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="base-ats" disabled></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control" id="total-ats" disabled></div>
+          </div>
+
+          <div class="mb-3 row align-items-center">
+            <label class="col-sm-5 col-form-label">Base de Cálculo</label>
+            <div class="col-sm-7"><input type="text" class="form-control" id="base-resilicao" disabled></div>
+          </div>
+
+          <h5 class="mb-3 text-center">Resilição - Verbas APS</h5>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label"><strong>84390 - Férias - Indenização Redução Aulas</strong></label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" placeholder="Avos Férias" id="avos-ferias" oninput="obterValor()"></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="base-ferias" disabled></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control negrito-input" id="valor-ferias" disabled></div>
+          </div>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label"><strong>84391 - 1/3 Férias - Indenização Redução Aulas</strong></label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" placeholder="Avos Férias" id="avos-tercoFerias" disabled></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="base-tercoFerias" disabled></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control negrito-input" id="valor-tercoFerias" disabled></div>
+          </div>
+
+          <div class="mb-1 row align-items-center">
+            <label class="col-sm-5 col-form-label"><strong>84332 - 13° Salário - Redução de Aulas</strong></label>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" placeholder="Avos Déc Terc" id="avos-decimoTerceiro" oninput="obterValor()"></div>
+            <div class="col-sm-2 mb-1"><input type="text" class="form-control" id="base-decimoTerceiro" disabled></div>
+            <div class="col-sm-3 mb-1"><input type="text" class="form-control negrito-input" id="valor-decimoTerceiro" disabled></div>
+          </div>
+
+          </div>
+        </div>
+      </div>
+
+      <script>
+    function obterValor() {
+        // Função para parsear valores numéricos com vírgula
+        function parseNumber(value) {
+            // Remover todos os pontos do valor
+            value = value.replace(/\./g, '');
+            return parseFloat(value.replace(',', '.') || '0');
+        }
+
+          // 10300 - Salário Mensal - Regente
+
+          let qtnRegente = parseNumber(document.getElementById('qtn-regente').value);
+          let valorRegente = parseNumber(document.getElementById('valor-regente').value);
+          let totalRegente = qtnRegente * valorRegente * 4.5;
+          document.getElementById('total-regente').value = totalRegente.toFixed(2);
+
+          // 10303 - Salário Horas Aula 1ª a 5ª
+
+          let qtnFund1 = parseNumber(document.getElementById('qtn-fund1').value);
+          let valorFund1 = parseNumber(document.getElementById('valor-fund1').value);
+          let totalFund1 = qtnFund1 * valorFund1 * 4.5;
+          document.getElementById('total-fund1').value = totalFund1.toFixed(2);
+
+          // 10312 - Salário Horas Aula 6ª a 9ª
+
+          let qtnFund2 = parseNumber(document.getElementById('qtn-fund2').value);
+          let valorFund2 = parseNumber(document.getElementById('valor-fund2').value);
+          let totalFund2 = qtnFund2 * valorFund2 * 4.5;
+          document.getElementById('total-fund2').value = totalFund2.toFixed(2);
+
+          // 10322 - Salário Horas Aula Ensino Médio
+
+          let qtnMedio = parseNumber(document.getElementById('qtn-medio').value);
+          let valorMedio = parseNumber(document.getElementById('valor-medio').value);
+          let totalMedio = qtnMedio * valorMedio * 4.5;
+          document.getElementById('total-medio').value = totalMedio.toFixed(2);
+
+          // 11200 - Descanso Semanal - Remunerado
+
+          const percentualDsr = 16.67;
+          document.getElementById('percentual-dsr').value = percentualDsr.toFixed(2);
+          
+          let baseDsr = totalRegente + totalFund1 + totalFund2 + totalMedio;
+          document.getElementById('base-dsr').value = baseDsr.toFixed(2);
+
+          let totalDsr = baseDsr * 1/6;
+          document.getElementById('total-dsr').value = totalDsr.toFixed(2);
+
+          // 00000 - ATS - Adicional Tempo Serviço
+
+          let percentualAts = parseNumber(document.getElementById('percentual-ats').value);
+          
+          let baseAts = totalRegente + totalFund1 + totalFund2 + totalMedio + totalDsr;
+          document.getElementById('base-ats').value = baseAts.toFixed(2);
+
+          let totalAts = baseAts * percentualAts / 100;
+          document.getElementById('total-ats').value = totalAts.toFixed(2);
+
+          // Base de Cálculo da Resilição
+
+          let baseResilicao = totalRegente + totalFund1 + totalFund2 + totalMedio + totalDsr + totalAts;
+          document.getElementById('base-resilicao').value = baseResilicao.toFixed(2);
+
+          // 84390 - Férias - Indenização Redução Aulas
+
+          let avosFerias = parseNumber(document.getElementById('avos-ferias').value);
+
+          document.getElementById('base-ferias').value = baseResilicao.toFixed(2);
+
+          let valorFerias = baseResilicao / 12 * avosFerias;
+          document.getElementById('valor-ferias').value = valorFerias.toFixed(2);
+
+          // 84390 - 84391 - 1/3 Férias - Indenização Redução Aulas
+
+          document.getElementById('avos-tercoFerias').value = avosFerias;
+          document.getElementById('base-tercoFerias').value = baseResilicao;
+
+          let tercoFerias = valorFerias / 3;
+          document.getElementById('valor-tercoFerias').value = tercoFerias.toFixed(2);
+          
+
+          // 84332 - 13° Salário - Redução de Aulas
+
+          let avosDecimoTerceiro = parseNumber(document.getElementById('avos-decimoTerceiro').value);
+
+          document.getElementById('base-decimoTerceiro').value = baseResilicao.toFixed(2);
+
+          let valorDecimoTerceiro = baseResilicao / 12 * avosDecimoTerceiro;
+          document.getElementById('valor-decimoTerceiro').value = valorDecimoTerceiro.toFixed(2);
+ 
+        }
+      </script>
+
+</body>
+</html>

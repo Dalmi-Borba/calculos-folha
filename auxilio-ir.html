@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculos Folha de Pagamento</title>
+<!-- CSS do Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- JS do Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Incluindo Favicon -->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Cálculos Folha de Pagamento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="hora-extra.html">Hora Extra</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adicional-noturno.html">Adicional Noturno</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gratificacao.html">Gratificação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inss-irpf.html">INSS e IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="resilicao.html">Resilição</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auxilio-ir.html">Aux IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adto-salarial.html">Adto Salarial</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            RPS
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="rps-frete.html">RPS de Frete Mercadoria</a></li>
+                            <li><a class="dropdown-item" href="rps-transporte.html">RPS de Transporte de Pessoas</a>
+                            </li>
+                            <li><a class="dropdown-item" href="rps-autonomo.html">RPS de Autônomo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Transferência
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="transferencia-clt.html">Transferência CLT</a></li>
+                            <li><a class="dropdown-item" href="transferencia-rel.html">Transferência Religioso</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Décimo Terceiro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="subs-anual-especial.html">Subsistência Anual Especial</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <style>
+    body {
+      background-color: #f2f2f2;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+        input {
+            width: 80%; /* Ajuste a largura conforme necessário */
+            padding: 10px; /* Aplica padding (preenchimento) em todos os lados */
+            text-align: center; /* Centraliza o placeholder */
+        }
+
+        .negrito-input {
+            /*background-color: #FFFF00;  Amarelo neon */
+            font-weight: bold;
+        }
+
+
+    </style>
+
+        <div class="content-wrapper">
+            <div class="card" style="width: 76rem;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col mx-auto"><h2 class="card-title mb-5 text-center">14350 - Auxílio IRRF</h2></div>
+                        <div class="col-1"><button type="button" class="btn btn-danger" onclick="limparCampos()">Resetar</button></div>
+                    </div>
+
+                    <form class="row g-2">
+                        <div class="col"></div>
+                        <div class="col-md-1 offset-md-2"></div>
+                        <div class="col-md-1 text-center"><label class="form-label">Referência</label></div>
+                        <div class="col-md-1 text-center"><label class="form-label">Valor Base</label></div>
+                        <div class="col-md-1 text-center"><label class="form-label">Percentual</label></div>
+                        <div class="col-md-1 text-center"><label class="form-label">Base Aux 1</label></div>
+                        <div class="col-md-1 text-center"><label class="form-label">Base Aux 2</label></div>
+                        <div class="col-md-1 text-center"><label class="form-label">Valor</label></div>
+                        <div class="col"></div>
+                    </form>
+
+                    <form class="row g-2 mb-2">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <h5>14350 - Auxilio IRRF</h5>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="refAuxIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="valorBaseAuxIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="percentAuxIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="baseAux1AuxIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="baseAux2AuxIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control negrito-input" id="valorAuxIr" disabled>
+                        </div>
+                        <div class="col"></div>
+                    </form>
+
+                    <form class="row g-2 mb-2">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <h5>15000 - INSS</h5>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="refInss" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="valorBaseInss" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="percentInss" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="baseAux1Inss" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="baseAux2Inss" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="valorInss" disabled>
+                        </div>
+                        <div class="col"></div>
+                    </form>
+
+                    <form class="row g-2">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <h5>15500 - IRRF Mensal</h5>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="refIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="valorBaseIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="percentIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="baseAux1Ir" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="baseAux2Ir" disabled>
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" id="valorIr" disabled>
+                        </div>
+                        <div class="col"></div>
+                    </form>
+
+                    <br>
+
+                    <form class="row">
+                        <div class="col"></div>
+                        <div class="col-3"></div>
+                        <div class="col-3"><h5>Informações Auxiliares</h5></div>
+                        <div class="col-3"></div>
+                        <div class="col"></div>
+                    </form>
+                
+                    <form class="row g-2">
+                        <div class="col"></div>
+                        <div class="col-md-1 offset-md-2"></div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Base IR</label>
+                            <input type="text" class="form-control" id="baseIrAps" oninput="obterValor()">
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Aux. IRRF</label>
+                            <input type="text" class="form-control" id="auxIrAps" oninput="obterValor()">
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Moradia</label>
+                            <input type="text" class="form-control" id="moradia" oninput="obterValor()">
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Isentas</label>
+                            <input type="text" class="form-control" id="isentas" oninput="obterValor()">
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">iAjA</label>
+                            <input type="text" class="form-control" id="iaja" oninput="obterValor()">
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Qtd Dep.</label>
+                            <input type="text" class="form-control" id="qtdDep" oninput="obterValor()">
+                        </div>
+                        <div class="col"></div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    <body>
+
+<script>
+function obterValor() {
+    // Função para parsear valores numéricos com vírgula
+    function parseNumber(value) {
+        // Remover todos os pontos do valor
+        value = value.replace(/\./g, '');
+        return parseFloat(value.replace(',', '.') || '0');
+    }
+
+    // Função para calcular IR
+    function calcularIR(baseCalculo) {
+        let ir, aliquota, deducao;
+
+        if (baseCalculo <= 2259.2) {
+            ir = 0.00;
+            aliquota = 0.00;
+            deducao = 0.00;
+        } else if (baseCalculo < 2826.65) {
+            ir = baseCalculo * 0.075 - 169.44;
+            aliquota = 7.50;
+            deducao = 169.44;
+        } else if (baseCalculo < 3751.05) {
+            ir = baseCalculo * 0.15 - 381.44;
+            aliquota = 15.00;
+            deducao = 381.44;
+        } else if (baseCalculo < 4664.68) {
+            ir = baseCalculo * 0.225 - 662.77;
+            aliquota = 22.50;
+            deducao = 662.77;
+        } else {
+            ir = baseCalculo * 0.275 - 896.00;
+            aliquota = 27.50;
+            deducao = 896.00;
+        }
+
+        if (ir < 10) {
+            ir = 0;
+        }
+
+        return { ir, aliquota, deducao };
+    }
+
+    // Função para calcular INSS
+    function calcularINSS(baseInss) {
+        let inss, aliquotaInss, deducaoInss;
+        let tetoInss = 8157.41;
+
+        if (baseInss <= 1518) {
+            inss = baseInss * 0.075;
+            aliquotaInss = 7.50;
+            deducaoInss = 0;
+        } else if (baseInss < 2793.88) {
+            inss = baseInss * 0.09 - 22.77;
+            aliquotaInss = 9.00;
+            deducaoInss = 22.77;
+        } else if (baseInss < 4190.83) {
+            inss = baseInss * 0.12 - 106.59;
+            aliquotaInss = 12.00;
+            deducaoInss = 106.59;
+        } else if (baseInss < 8157.41) {
+            inss = baseInss * 0.14 - 190.40;
+            aliquotaInss = 14.00;
+            deducaoInss = 190.40;
+        } else {
+            inss = 8157.41 * 0.14 - 190.40;
+            aliquotaInss = 14.00;
+            deducaoInss = 190.40;
+        }
+
+        return { inss, aliquotaInss, deducaoInss };
+    }
+
+    // 1. Obter e processar os inputs
+    let baseIrAps = parseNumber(document.getElementById('baseIrAps').value);
+    let auxIrAps = parseNumber(document.getElementById('auxIrAps').value);
+    let moradia = parseNumber(document.getElementById('moradia').value);
+    let isentas = parseNumber(document.getElementById('isentas').value);
+    let iaja = parseNumber(document.getElementById('iaja').value);
+    let qtdDepIr = parseNumber(document.getElementById('qtdDep').value);
+
+    // 2. Cálculo iterativo do INSS e auxIr
+    let baseInss = baseIrAps - auxIrAps - isentas;
+    let auxIr = 0;
+    let inss = 0;
+    let aliquotaInss = 0;
+    let deducaoInss = 0;
+    let maxIterations = 100;
+    let epsilon = 0.01;
+
+    for (let i = 0; i < maxIterations; i++) {
+        let novaBaseInss = baseIrAps - auxIrAps - isentas + auxIr;
+        let resultadoINSS = calcularINSS(novaBaseInss);
+        let novoInss = resultadoINSS.inss;
+
+        // Preparar cálculos do IR
+        const dedDepententeIr = 189.59;
+        const dedSimplificada = 564.80;
+
+        let depIr = qtdDepIr * dedDepententeIr;
+        let deducoesIr = novoInss + depIr + iaja;
+        let deducaoUtilizada = Math.max(deducoesIr, dedSimplificada);
+
+        // Calcular IR sem Aluguel
+        let baseAuxIr = baseIrAps - auxIrAps - moradia - isentas;
+        let baseCalculoSAluguel = baseAuxIr - deducaoUtilizada;
+        let irSAluguel = calcularIR(baseCalculoSAluguel).ir;
+
+        // Calcular IR com Aluguel
+        let baseIr = baseIrAps - auxIrAps + auxIr;
+        let baseCalculoCAluguel = baseIr - deducaoUtilizada;
+        let irCAluguel = calcularIR(baseCalculoCAluguel).ir;
+
+        let novoAuxIr = irCAluguel - irSAluguel;
+
+        if (Math.abs(novoAuxIr - auxIr) < epsilon && Math.abs(novaBaseInss - baseInss) < epsilon) {
+            baseInss = novaBaseInss;
+            inss = novoInss;
+            auxIr = novoAuxIr;
+            aliquotaInss = resultadoINSS.aliquotaInss;
+            deducaoInss = resultadoINSS.deducaoInss;
+            break;
+        }
+
+        baseInss = novaBaseInss;
+        inss = novoInss;
+        auxIr = novoAuxIr;
+        aliquotaInss = resultadoINSS.aliquotaInss;
+        deducaoInss = resultadoINSS.deducaoInss;
+    }
+
+    // 3. Cálculos finais
+    let tetoInss = 8157.41;
+    let valorBaseInss = Math.min(baseInss, tetoInss);
+    let percentInss = baseInss > tetoInss ? baseInss - tetoInss : 0.00;
+
+    const dedDepententeIr = 189.59;
+    const dedSimplificada = 564.80;
+
+    let depIr = qtdDepIr * dedDepententeIr;
+    let deducoesIr = inss + depIr + iaja;
+    let deducaoUtilizada = Math.max(deducoesIr, dedSimplificada);
+
+    let baseIr = baseIrAps - auxIrAps + auxIr;
+    let baseCalculoIr = baseIr - deducaoUtilizada;
+    let resultadoIR = calcularIR(baseCalculoIr);
+
+    // 4. Preparar os resultados
+    let resultados = {
+        refInss: aliquotaInss.toFixed(2),
+        valorBaseInss: valorBaseInss.toFixed(2),
+        percentInss: percentInss.toFixed(2),
+        baseAux1Inss: deducaoInss.toFixed(2),
+        valorInss: inss.toFixed(2),
+        valorBaseAuxIr: (baseIrAps - auxIrAps - moradia - isentas).toFixed(2),
+        percentAuxIr: deducaoUtilizada.toFixed(2),
+        baseAux1AuxIr: (baseIrAps - auxIrAps - moradia - isentas - deducaoUtilizada).toFixed(2),
+        baseAux2AuxIr: (resultadoIR.ir - auxIr).toFixed(2),
+        valorBaseIr: baseIr.toFixed(2),
+        percentIr: deducaoUtilizada.toFixed(2),
+        baseAux1Ir: baseCalculoIr.toFixed(2),
+        baseAux2Ir: resultadoIR.deducao.toFixed(2),
+        valorIr: resultadoIR.ir.toFixed(2),
+        valorAuxIr: auxIr.toFixed(2)
+    };
+
+    // 5. Atualizar os campos na interface
+    for (let [id, value] of Object.entries(resultados)) {
+        document.getElementById(id).value = value;
+    }
+}
+
+
+function limparCampos() {
+    // Definir os IDs dos inputs a serem limpos
+    const idsCampos = [
+        'refAuxIr', 'valorBaseAuxIr', 'percentAuxIr', 'baseAux1AuxIr', 'baseAux2AuxIr', 'valorAuxIr',
+        'refInss', 'valorBaseInss', 'percentInss', 'baseAux1Inss', 'baseAux2Inss', 'valorInss',
+        'refIr', 'valorBaseIr', 'percentIr', 'baseAux1Ir', 'baseAux2Ir', 'valorIr',
+        'baseIrAps', 'auxIrAps', 'moradia', 'isentas', 'iaja', 'qtdDep'
+    ];
+
+    // Loop através de cada ID e redefinir o valor para '0.00'
+    idsCampos.forEach(function(id) {
+        document.getElementById(id).value = '0.00';
+    });
+}
+
+</script>
+
+</body>
+</html>

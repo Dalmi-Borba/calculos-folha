@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculos Folha de Pagamento</title>
+<!-- CSS do Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- JS do Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Incluindo Favicon -->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Cálculos Folha de Pagamento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="hora-extra.html">Hora Extra</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adicional-noturno.html">Adicional Noturno</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gratificacao.html">Gratificação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inss-irpf.html">INSS e IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="resilicao.html">Resilição</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auxilio-ir.html">Aux IR</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adto-salarial.html">Adto Salarial</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            RPS
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="rps-frete.html">RPS de Frete Mercadoria</a></li>
+                            <li><a class="dropdown-item" href="rps-transporte.html">RPS de Transporte de Pessoas</a>
+                            </li>
+                            <li><a class="dropdown-item" href="rps-autonomo.html">RPS de Autônomo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Transferência
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="transferencia-clt.html">Transferência CLT</a></li>
+                            <li><a class="dropdown-item" href="transferencia-rel.html">Transferência Religioso</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Décimo Terceiro
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="subs-anual-especial.html">Subsistência Anual Especial</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <style>
+    body {
+        background-color: #f2f2f2;
+        min-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        }
+
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+        input {
+            width: 80%; /* Ajuste a largura conforme necessário */
+            padding: 10px; /* Aplica padding (preenchimento) em todos os lados */
+            text-align: center; /* Centraliza o placeholder */
+        }
+
+        .neon-input {
+            background-color: #FFFF00; /* Amarelo neon */
+            font-weight: bold;
+        }
+
+        .branco {
+                color: white;
+            }
+
+    </style>
+
+        <div class="content-wrapper">
+            <div class="card" style="width: 80rem;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col mx-auto"><h2 class="card-title mb-5 text-center">73000 - Adiantamento Mensal</h2></div>
+                        <div class="col-1"><button type="button" class="btn btn-danger" onclick="limparCampos()">Resetar</button></div>
+                    </div>
+                    
+                    <h4 class="text-center"><strong>Salário Mensal</strong></h4>
+
+                    <form class="row g-3">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <h7 class="branco">.</h7>
+                            <h5>15500 - IRRF Mensal</h5>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Referência</label>
+                            <input type="text" class="form-control" id="refSal" disabled>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Valor Base</label>
+                            <input type="text" class="form-control" id="valorBaseSal" disabled>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Percentual</label>
+                            <input type="text" class="form-control" id="percentSal" disabled>
+                        </div>
+                        <div class="col-2 text-center">
+                            <label class="form-label">Base Aux 1</label>
+                            <input type="text" class="form-control" id="baseAux1Sal" placeholder="Base Aux da 15500" oninput="obterValor()">
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Base Aux 2</label>
+                            <input type="text" class="form-control" id="baseAux2Sal" disabled>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Valor</label>
+                            <input type="text" class="form-control" id="valorSal" disabled>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col"></div>
+                    </form>
+
+                    <br>
+
+                    <h4 class="text-center"><strong>Adiantamento Mensal</strong></h4>
+
+                    <form class="row g-3">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <h7 class="branco">.</h7>
+                            <h5>73000 - Adiantamento Mensal</h5>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Referência</label>
+                            <input type="text" class="form-control" id="refAdto" disabled>
+                        </div>
+                        <div class="col-2 text-center">
+                            <label class="form-label">Valor Fixo</label>
+                            <input type="text" class="form-control neon-input" id="valorFixoAdto" disabled>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Percentual</label>
+                            <input type="text" class="form-control" id="percentAdto" disabled>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Base Aux 1</label>
+                            <input type="text" class="form-control" id="baseAux1Adto" disabled>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Base Aux 2</label>
+                            <input type="text" class="form-control" id="baseAux2Adto" disabled>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Base Aux 3</label>
+                            <input type="text" class="form-control" id="baseAux3Adto" disabled>
+                        </div>
+                        <div class="col-1 text-center">
+                            <label class="form-label">Valor</label>
+                            <input type="text" class="form-control" id="valorAdto" disabled>
+                        </div>
+                        <div class="col"></div>
+                    </form>
+
+                    <br>
+                
+                    <form class="row g-3">
+                        <div class="col"></div>
+                        <div class="col-3">
+                            <h7 class="branco"></h7>
+                            <h5>15500 - IRRF Mensal</h5>
+                        </div>
+                        <div class="col-1">
+                            
+                            <input type="text" class="form-control" id="refIr" disabled>
+                        </div>
+                        <div class="col-2">
+                            
+                            <input type="text" class="form-control" id="valorFixoIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            
+                            <input type="text" class="form-control" id="percentIr" disabled>
+                        </div>
+                        <div class="col-1">
+                            
+                            <input type="text" class="form-control" id="baseAux1Ir" disabled>
+                        </div>
+                        <div class="col-1">
+                            
+                            <input type="text" class="form-control" id="baseAux2Ir" disabled>
+                        </div>
+                        <div class="col-1">
+                            
+                            <input type="text" class="form-control" id="baseAux3Ir" disabled>
+                        </div>
+                        <div class="col-1">
+                            
+                            <input type="text" class="form-control" id="valorIr" disabled>
+                        </div>
+                        <div class="col"></div>
+                    </form>
+
+                    <br>
+
+                    <h4 class="text-center"><strong>Resumo</strong></h4>
+                
+                    <form class="row g-3">
+                        <div class="col"></div>
+                        <div class="col-md-2 offset-md-3 text-center">
+                            <label class="form-label">Proventos</label>
+                            <input type="text" class="form-control" id="proventos" disabled>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <label class="form-label">Descontos</label>
+                            <input type="text" class="form-control" id="descontos" disabled>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <label class="form-label">Outros</label>
+                            <input type="text" class="form-control" id="outros" value='0.00' disabled>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <label class="form-label">Líquido</label>
+                            <input type="text" class="form-control" id="liquido" placeholder="Líquido Desejado" oninput="obterValor()">
+                        </div>
+                        <div class="col"></div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+    <script>
+            function obterValor() {
+                // Função para parsear valores numéricos com vírgula
+                function parseNumber(value) {
+                    // Remover todos os pontos do valor
+                    value = value.replace(/\./g, '');
+                    return parseFloat(value.replace(',', '.') || '0');
+                }
+
+            // 1. Obter e processar o valor de 'liquido'
+            let liquidoStr = document.getElementById('liquido').value;
+            let liquido = parseNumber(liquidoStr);
+
+            // 2. Salário Mensal
+            let baseAux1SalStr = document.getElementById('baseAux1Sal').value;
+            let baseAux1Sal = parseNumber(baseAux1SalStr);
+
+            let irSal, aliquotaSal, deducaoSal;
+
+            if (baseAux1Sal <= 2259.2) {
+                irSal = 0.00;
+                aliquotaSal = 0.00;
+                deducaoSal = 0.00;
+            } else if (baseAux1Sal < 2826.65) {
+                irSal = baseAux1Sal * 0.075 - 169.44;
+                aliquotaSal = 7.50;
+                deducaoSal = 169.44;
+            } else if (baseAux1Sal < 3751.05) {
+                irSal = baseAux1Sal * 0.15 - 381.44;
+                aliquotaSal = 15.00;
+                deducaoSal = 381.44; 
+            } else if (baseAux1Sal < 4664.68) {
+                irSal = baseAux1Sal * 0.225 - 662.77;
+                aliquotaSal = 22.50;
+                deducaoSal = 662.77; 
+            } else {
+                irSal = baseAux1Sal * 0.275 - 896.00;
+                aliquotaSal = 27.50;
+                deducaoSal = 896.00; 
+            }
+
+            let valorIrSal = irSal.toFixed(2);
+            document.getElementById('valorSal').value = valorIrSal;
+
+            // Atualizar referências de salário
+            document.getElementById('refSal').value = aliquotaSal;
+            document.getElementById('baseAux2Sal').value = deducaoSal;
+
+            // 3. Implementação do Método Goal Seek (Bisseção) para encontrar 'valorFixoAdto'
+            // Definir os limites inicial e final
+            let lowerBound = 0.0;
+            let upperBound = liquido * 2; // Ajuste conforme necessário
+            let valorFixoAdto = (upperBound + lowerBound) / 2;
+            const tolerance = 0.0001; 
+            const maxIterations = 1000; // evitar loops infinitos caso a solução não convirja
+            let iteration = 0;
+            let formulaLiquido = 0;
+
+            // Função que calcula 'formulaLiquido' com base em 'valorFixoAdto'
+            function calculateFormulaLiquido(vFixo) {
+                // 73000 - Adiantamento Mensal
+                let baseAux1Ir = baseAux1Sal + vFixo;
+
+                // Cálculo do IRRF Adto
+                let irAdto, aliquotaAdto, deducaoAdto;
+
+                if (baseAux1Ir <= 2259.2) {
+                    irAdto = 0.00;
+                    aliquotaAdto = 0.00;
+                    deducaoAdto = 0.00;
+                } else if (baseAux1Ir < 2826.65) {
+                    irAdto = baseAux1Ir * 0.075 - 169.44;
+                    aliquotaAdto = 7.50;
+                    deducaoAdto = 169.44;
+                } else if (baseAux1Ir < 3751.05) {
+                    irAdto = baseAux1Ir * 0.15 - 381.44;
+                    aliquotaAdto = 15.00;
+                    deducaoAdto = 381.44; 
+                } else if (baseAux1Ir < 4664.68) {
+                    irAdto = baseAux1Ir * 0.225 - 662.77;
+                    aliquotaAdto = 22.50;
+                    deducaoAdto = 662.77; 
+                } else {
+                    irAdto = baseAux1Ir * 0.275 - 896.00;
+                    aliquotaAdto = 27.50;
+                    deducaoAdto = 896.00; 
+                }
+
+                let IrDifAdtoXSal = irAdto - irSal;
+
+                // Retornar a diferença entre o valor desejado e o calculado
+                return (vFixo - IrDifAdtoXSal) - liquido;
+            }
+
+            // Método da Bisseção
+            while (iteration < maxIterations) {
+                formulaLiquido = calculateFormulaLiquido(valorFixoAdto);
+
+                if (Math.abs(formulaLiquido) <= tolerance) {
+                    break; // Encontrou a solução dentro da tolerância
+                }
+
+                if (calculateFormulaLiquido(lowerBound) * formulaLiquido < 0) {
+                    upperBound = valorFixoAdto; // Valor máximo possível
+                } else {
+                    lowerBound = valorFixoAdto; // Valor mínimo possível
+                }
+
+                valorFixoAdto = (upperBound + lowerBound) / 2; // Calcular o ponto médio do intervalo
+                iteration++; // 
+            }
+
+            if (iteration === maxIterations) {
+                console.warn('Goal Seek não convergiu dentro do número máximo de iterações.');
+            }
+
+            // Atualizar os campos com o valor encontrado
+            document.getElementById('valorFixoAdto').value = valorFixoAdto.toFixed(4);
+            document.getElementById('valorAdto').value = valorFixoAdto.toFixed(2);
+
+            // 4. Cálculo do IRRF Mensal com 'valorFixoAdto' encontrado
+            let baseAux1Ir = baseAux1Sal + valorFixoAdto;
+            let valorBaseAux1Ir = baseAux1Ir.toFixed(2);
+            document.getElementById('baseAux1Ir').value = valorBaseAux1Ir;
+
+            let irAdto, aliquotaAdto, deducaoAdto;
+
+            if (baseAux1Ir <= 2259.2) {
+                irAdto = 0.00;
+                aliquotaAdto = 0.00;
+                deducaoAdto = 0.00;
+            } else if (baseAux1Ir < 2826.65) {
+                irAdto = baseAux1Ir * 0.075 - 169.44;
+                aliquotaAdto = 7.50;
+                deducaoAdto = 169.44;
+            } else if (baseAux1Ir < 3751.05) {
+                irAdto = baseAux1Ir * 0.15 - 381.44;
+                aliquotaAdto = 15.00;
+                deducaoAdto = 381.44; 
+            } else if (baseAux1Ir < 4664.68) {
+                irAdto = baseAux1Ir * 0.225 - 662.77;
+                aliquotaAdto = 22.50;
+                deducaoAdto = 662.77; 
+            } else {
+                irAdto = baseAux1Ir * 0.275 - 896.00;
+                aliquotaAdto = 27.50;
+                deducaoAdto = 896.00; 
+            }
+
+            let IrDifAdtoXSal = irAdto - irSal;
+            let IrAdtoDif = IrDifAdtoXSal.toFixed(2);
+            document.getElementById('valorIr').value = IrAdtoDif;
+
+            document.getElementById('refIr').value = aliquotaAdto;
+            document.getElementById('baseAux2Ir').value = deducaoAdto;
+            document.getElementById('baseAux3Ir').value = valorIrSal;
+
+            // 5. Resumo
+            let proventos = valorFixoAdto.toFixed(2);
+            document.getElementById('proventos').value = proventos;
+
+            let descontos = IrDifAdtoXSal.toFixed(2);
+            document.getElementById('descontos').value = descontos;
+
+            // Opcional: Atualizar 'liquido' se necessário ou exibir algum alerta
+        }
+
+
+            function limparCampos() {
+                // 1. Limpar os valores dos campos de input
+                document.getElementById('liquido').value = '';
+                document.getElementById('baseAux1Sal').value = '';
+                document.getElementById('valorSal').value = '';
+                document.getElementById('refSal').value = '';
+                document.getElementById('baseAux2Sal').value = '';
+                document.getElementById('valorFixoAdto').value = '';
+                document.getElementById('valorAdto').value = '';
+                document.getElementById('baseAux1Ir').value = '';
+                document.getElementById('valorIr').value = '';
+                document.getElementById('refIr').value = '';
+                document.getElementById('baseAux2Ir').value = '';
+                document.getElementById('baseAux3Ir').value = '';
+                document.getElementById('proventos').value = '';
+                document.getElementById('descontos').value = '';
+
+                // 2. Resetar as variáveis internas do script
+                let liquidoStr = '';
+                let liquido = 0;
+
+                let baseAux1SalStr = '';
+                let baseAux1Sal = 0;
+
+                let irSal = 0;
+                let aliquotaSal = 0;
+                let deducaoSal = 0;
+
+                let lowerBound = 0;
+                let upperBound = 0;
+                let valorFixoAdto = 0;
+                let tolerance = 0.0001;
+                let maxIterations = 1000;
+                let iteration = 0;
+                let formulaLiquido = 0;
+
+                let baseAux1Ir = 0;
+                let irAdto = 0;
+                let aliquotaAdto = 0;
+                let deducaoAdto = 0;
+
+                let IrDifAdtoXSal = 0;
+
+                // Opcional: Exibir um alerta de que os campos foram limpos
+                console.log("Campos e variáveis limpos.");
+            }
+
+    </script>
+
+</body>
+</html>
